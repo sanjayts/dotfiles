@@ -1,0 +1,38 @@
+# macOS metadata
+.DS_Store
+._*
+
+# Editor backups and swap files
+*~
+*.swp
+*.swo
+*.bak
+
+# Secrets and credentials (defense-in-depth: never commit these)
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.jks
+*.keystore
+*_rsa
+*_rsa.*
+*_dsa
+*_dsa.*
+*_ecdsa
+*_ecdsa.*
+*_ed25519
+*_ed25519.*
+id_*
+authorized_keys
+known_hosts
+.ssh/
+.aws/
+.netrc
+.git-credentials
+credentials
+credentials.json
+secrets/
