@@ -1,0 +1,50 @@
+[pager]
+  branch = false
+
+[includeIf "gitdir:~/personal-repos/"]
+  path = ~/personal-repos/.gitconfig
+
+[pull]
+  rebase = true
+
+# Below added from https://blog.gitbutler.com/how-git-core-devs-configure-git/
+[column]
+  ui = auto
+[branch]
+  sort = -committerdate
+[tag]
+  sort = version:refname
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+[push]
+  default = simple
+  autoSetupRemote = true
+  followTags = true
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
+[help]
+  autocorrect = immediate
+[commit]
+  verbose = true
+[rerere]
+  enabled = true
+  autoupdate = true
+[credential]
+  helper = store
+[core]
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  dark = false
+  side-by-side = true
+[merge]
+  conflictStyle = zdiff3
+[alias]
+  dft = -c diff.external=difft diff

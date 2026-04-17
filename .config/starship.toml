@@ -1,0 +1,6 @@
+# Disable cloud account display (removes "on ☁️ email" from prompt)
+[gcloud]
+disabled = true
+
+[aws]
+disabled = true
