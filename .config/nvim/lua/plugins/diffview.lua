@@ -70,12 +70,22 @@ return {
     },
     opts = {
       enhanced_diff_hl = true,
+      -- --imply-local: use real file paths for working-tree side so LSP works there
+      -- (left/historical side still uses diffview:// URIs; LspAttach detach handles those)
+      default_args = {
+        DiffviewOpen = { "--imply-local" },
+      },
       view = {
         default = {
           winbar_info = true,
+          disable_diagnostics = true,
+        },
+        merge_tool = {
+          disable_diagnostics = true,
         },
         file_history = {
           winbar_info = true,
+          disable_diagnostics = true,
         },
       },
     },
