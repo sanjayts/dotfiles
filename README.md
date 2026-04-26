@@ -13,6 +13,7 @@ Personal configuration files for a macOS development setup.
 | `.gitconfig` | Git |
 | `.config/kitty/` | Kitty terminal |
 | `.config/starship.toml` | Starship prompt |
+| `.config/atuin/config.toml` | Atuin (shell history) |
 | `.config/btop/`, `.config/htop/` | System monitors |
 
 ## Setup
