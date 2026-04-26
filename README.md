@@ -25,15 +25,19 @@ cd ~/personal-repos/dotfiles
 ### 1. Install dependencies
 
 ```sh
-brew install \
-  neovim tmux kitty starship btop htop \
-  eza zoxide mise atuin fzf broot \
-  bun uv \
-  gitleaks
+brew bundle install
 ```
 
+This reads the [`Brewfile`](Brewfile) at the repo root and installs
+every CLI (`neovim`, `tmux`, `starship`, `mise`, `bun`, `uv`,
+`gitleaks`, etc.) plus the `kitty` cask in one shot. Re-running is
+idempotent; `brew bundle check` reports any missing entries.
+
+For machine-/work-specific extras, drop a sibling `Brewfile.local`
+(gitignored) and install with `brew bundle install --file=Brewfile.local`.
+
 On non-macOS systems the package names are mostly identical via `apt`,
-`pacman`, or `nix`.
+`pacman`, or `nix` -- consult the `Brewfile` for the canonical list.
 
 `bun` and `uv` are the daily-driver runtimes for JavaScript/TypeScript
 and Python work respectively (they replace `npm` / `pip` / `poetry` /
