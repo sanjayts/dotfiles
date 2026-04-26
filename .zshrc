@@ -1,3 +1,11 @@
+# Pre-load machine-/work-specific overrides. ~/.zshrc.local stays
+# untracked (lives at $HOME, never committed) and lets a fresh machine
+# layer secrets, work env, work aliases, or PATH tweaks on top of the
+# open-source config below. Sourced at the very top so values it sets
+# (e.g. ZSH_THEME, plugins=, GOPATH) take effect for the rest of this
+# file.
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
 # Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
