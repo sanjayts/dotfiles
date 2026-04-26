@@ -69,7 +69,9 @@ return {
       { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "Close diffview" },
     },
     opts = {
-      enhanced_diff_hl = true,
+      -- Disabled: enhanced_diff_hl produces oversaturated diff colors that
+      -- clash with our current theme. Theme's native diff colors look better.
+      enhanced_diff_hl = false,
       -- --imply-local: use real file paths for working-tree side so LSP works there
       -- (left/historical side still uses diffview:// URIs; LspAttach detach handles those)
       default_args = {
@@ -86,6 +88,18 @@ return {
         file_history = {
           winbar_info = true,
           disable_diagnostics = true,
+        },
+      },
+      -- Press `q` to close the entire diffview from any of its panes
+      keymaps = {
+        view = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" } },
+        },
+        file_panel = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" } },
+        },
+        file_history_panel = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" } },
         },
       },
     },
