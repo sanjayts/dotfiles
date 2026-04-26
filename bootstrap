@@ -13,6 +13,7 @@ repo="$PWD"
 files=(
   .tmux.conf
   .config/starship.toml
+  .config/atuin/config.toml
   .config/btop/btop.conf
   .config/htop/htoprc
   .tool-versions
