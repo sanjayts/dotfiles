@@ -28,11 +28,19 @@ cd ~/personal-repos/dotfiles
 brew install \
   neovim tmux kitty starship btop htop \
   eza zoxide mise atuin fzf broot \
+  bun uv \
   gitleaks
 ```
 
 On non-macOS systems the package names are mostly identical via `apt`,
 `pacman`, or `nix`.
+
+`bun` and `uv` are the daily-driver runtimes for JavaScript/TypeScript
+and Python work respectively (they replace `npm` / `pip` / `poetry` /
+`pipx` in your own development). The next step also installs the
+underlying `node` and `python` toolchains -- those are passive
+dependencies needed by Mason in Neovim to fetch LSP servers and
+formatters.
 
 ### 2. Symlink the configs
 
@@ -65,7 +73,31 @@ Two ways to handle them:
   or secret. `.gitconfig` supports the same pattern via `[include] path
   = ~/.gitconfig.local`.
 
-### 3. Enable the secret-scan hook
+### 3. Install language runtimes
+
+The repo ships a `.tool-versions` pinning every language toolchain
+the configs depend on. After step 2 has symlinked it into `$HOME`,
+install everything in one go:
+
+```sh
+mise install
+```
+
+This provisions `go`, `node`, `python`, `ruby`, `bun`, and `uv` at the
+versions pinned in `.tool-versions`. Edit and re-run if you need
+specific versions on a particular machine.
+
+**Why `bun`/`uv` AND `node`/`python`?** `bun` (instead of `npm`) and
+`uv` (instead of `pip` / `poetry` / `pipx`) are the daily drivers --
+much faster, fewer rough edges, and what you'll reach for in your own
+projects. But Mason (the LazyVim sub-system that installs LSP servers
+and formatters) hardcodes `npm install` and `pip install` for many
+packages, so the underlying `node` and `python` toolchains need to be
+on `$PATH` for Mason to bootstrap things like `pyright`, `prettier`,
+and `markdownlint-cli`. Treat them as passive toolchain dependencies;
+reach for `bun` and `uv` for anything you actively type.
+
+### 4. Enable the secret-scan hook
 
 ```sh
 ./hooks/install
@@ -74,7 +106,7 @@ Two ways to handle them:
 See [Secret scanning](#secret-scanning-pre-commit) for what this does
 and why.
 
-### 4. First launch
+### 5. First launch
 
 - Open `nvim` once -- [lazy.nvim](https://github.com/folke/lazy.nvim)
   installs every plugin from `lazy-lock.json`.

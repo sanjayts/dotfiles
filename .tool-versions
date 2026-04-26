@@ -1,0 +1,6 @@
+go latest
+node lts
+python latest
+ruby latest
+bun latest
+uv latest
