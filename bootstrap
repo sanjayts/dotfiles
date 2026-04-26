@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# Install dotfile symlinks from this repo into $HOME.
+# Idempotent: re-running is safe. Any pre-existing live file is renamed
+# to "<name>_bkp" before the symlink is created, so nothing is destroyed.
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+repo="$PWD"
+
+# Whole-file symlinks (file replaced individually so neighbouring runtime
+# files in the same directory -- e.g. btop themes/ or htop state -- are
+# preserved).
+files=(
+  .tmux.conf
+  .config/starship.toml
+  .config/btop/btop.conf
+  .config/htop/htoprc
+)
+
+# Whole-directory symlinks (the repo's directory contents are the full
+# intended state; entire dir is symlinked).
+dirs=(
+  .config/kitty
+  .config/nvim
+)
+
+link() {
+  local rel="$1"
+  local src="$repo/$rel"
+  local dst="$HOME/$rel"
+
+  if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+    printf 'ok  %s\n' "$rel"
+    return 0
+  fi
+
+  if [ -e "$dst" ] || [ -L "$dst" ]; then
+    mv "$dst" "${dst}_bkp"
+    printf 'bak %s -> %s_bkp\n' "$rel" "$rel"
+  fi
+
+  mkdir -p "$(dirname "$dst")"
+  ln -s "$src" "$dst"
+  printf 'ln  %s -> %s\n' "$rel" "$src"
+}
+
+for f in "${files[@]}"; do link "$f"; done
+for d in "${dirs[@]}"; do link "$d"; done
+
+cat <<'EOF'
+
+Done. Next steps:
+  - tmux source ~/.tmux.conf    (if a tmux server is already running)
+  - launch nvim once            (lazy.nvim installs plugins)
+  - launch tmux once            (TPM auto-installs plugins)
+  - ./hooks/install             (enable the gitleaks pre-commit hook)
+EOF
