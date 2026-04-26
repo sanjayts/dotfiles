@@ -42,7 +42,10 @@ eval "$(zoxide init zsh)"
 eval "$(mise activate zsh)"
 eval "$(atuin init zsh)"
 eval "$(starship init zsh)"
-source "$HOME/.config/broot/launcher/bash/br"
+# Guarded: the launcher is only generated after running `broot --install`
+# (or accepting the install prompt the first time `broot` is launched).
+# On a fresh machine the file is absent until that runs.
+[ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
 
 # envman (per-tool env loader)
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"

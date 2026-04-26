@@ -7,4 +7,6 @@
 # Added by devbox to ensure ~/.local/bin is on PATH
 export PATH="$HOME/.local/bin:$PATH"
 
-source "$HOME/.config/broot/launcher/bash/br"
+# Guarded: the launcher is only generated after running `broot --install`
+# (or accepting the install prompt the first time `broot` is launched).
+[ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
