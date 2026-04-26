@@ -117,6 +117,48 @@ and why.
 - If a tmux server is already running, `tmux source ~/.tmux.conf` picks
   up the new bindings without restarting it.
 
+## Migrating an existing .zshrc
+
+Goal: have the repo `.zshrc` symlinked over `~/.zshrc`, with
+machine-specific delta (work env, tokens, work aliases, custom PATH) in
+`~/.zshrc.local`. The repo's `.zshrc` sources the local file at the
+top, so the layering activates as soon as both files are in place.
+
+This migration is a *curation* task, not a wholesale copy. ~80% of a
+typical pre-existing `.zshrc` is redundant with the repo version (Oh
+My Zsh setup, eza/zoxide/mise/atuin/starship/fzf init, history
+options, vi mode). Dumping the entire old file into `.zshrc.local`
+causes double-init bugs: atuin attaches its history hooks twice, Oh
+My Zsh sources twice, plugin arrays get clobbered.
+
+Steps:
+
+1. Pull only the *delta* from the repo baseline into `~/.zshrc.local`.
+   What belongs there:
+   - secrets and tokens (`JIRA_API_TOKEN`, artifactory creds, etc.)
+   - work env vars (`ROO_BASE`, `GOPRIVATE`, `BUNDLE_*`, ...)
+   - work-specific aliases or `claude --add-dir ~/work-repo/...` shortcuts
+   - machine-specific PATH entries
+   - extra Oh My Zsh plugins -- but use `plugins+=(...)` to **append**;
+     the repo `.zshrc` runs `plugins=(git macos docker)` after
+     `.zshrc.local` is sourced, so a bare `plugins=(...)` in the local
+     file is overwritten.
+2. Discard everything else from the old file -- it's already in the
+   repo version.
+3. Swap the symlink:
+   ```sh
+   mv ~/.zshrc ~/.zshrc.bkp
+   ln -s ~/personal-repos/dotfiles/.zshrc ~/.zshrc
+   ```
+4. Open a new shell. Anything missing belongs in `~/.zshrc.local`.
+   Anything double-firing (e.g. atuin showing every command twice in
+   the up-arrow buffer) means `.zshrc.local` is redoing work the repo
+   file already does -- remove the duplicate from `.zshrc.local`.
+
+The same pattern works for `.bashrc.local`, `.zprofile.local`, and
+`.gitconfig.local` (the last via `[include] path = ~/.gitconfig.local`
+inside `.gitconfig`).
+
 ## Layout
 
 Files are laid out relative to `$HOME`, so they can be consumed with GNU Stow,
