@@ -16,6 +16,10 @@ return {
       vim.g.mkdp_refresh_slow = 0
       -- Keep preview server alive when switching buffers
       vim.g.mkdp_auto_close = 0
+      -- Light base theme so structural elements (headings, code blocks) get
+      -- light backgrounds. Our custom CSS then tints them sepia.
+      vim.g.mkdp_theme = "light"
+      vim.g.mkdp_markdown_css = vim.fn.expand("~/.config/nvim/markdown-preview-sepia.css")
     end,
   },
 }

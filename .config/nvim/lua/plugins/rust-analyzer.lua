@@ -11,6 +11,12 @@ return {
               -- Also filter out import statements from references
               excludeImports = true,
             },
+            imports = {
+              -- Group imports by module: `use foo::bar::{Baz, Qux};` rather than separate lines
+              granularity = { group = "module" },
+              -- Prefer `self::` prefix for relative imports
+              prefix = "self",
+            },
           },
         },
       },

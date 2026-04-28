@@ -1,0 +1,103 @@
+/* Sepia theme for markdown-preview.nvim
+   Light warm beige background with dark brown text -- easy on the eyes. */
+
+/* Cover the whole page including the markdown-body container */
+html, body, .markdown-body, article, main, #content, #app {
+  background-color: #faf3e0 !important;
+  color: #5c4b37 !important;
+}
+
+body {
+  /* Literata: Google's reading-optimized serif (Kindle Bookerly clone) */
+  font-family: "Literata", "Iowan Old Style", "Charter", Georgia, serif !important;
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 900px;
+  margin: 2em auto;
+  padding: 0 2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #3a2e1f !important;
+  border-bottom-color: #e2d4b3 !important;
+  font-family: "Literata", "Iowan Old Style", "Charter", Georgia, serif !important;
+}
+
+a {
+  color: #8b5a2b !important;
+}
+
+a:hover {
+  color: #6b3f1c !important;
+}
+
+/* Inline code */
+code {
+  background-color: #f1e7cd !important;
+  color: #5c3a1a !important;
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: "Fira Code", "Fira Mono Nerd Font", "Fira Mono", "Menlo", monospace !important;
+}
+
+/* Code blocks */
+pre {
+  background-color: #f1e7cd !important;
+  color: #3a2e1f !important;
+  border: 1px solid #e2d4b3 !important;
+  border-radius: 4px;
+  padding: 1em;
+  overflow-x: auto;
+  font-family: "Fira Code", "Fira Mono Nerd Font", "Fira Mono", "Menlo", monospace !important;
+}
+
+pre code {
+  background-color: transparent !important;
+  color: inherit !important;
+  padding: 0;
+}
+
+blockquote {
+  border-left: 4px solid #c4a878 !important;
+  background-color: #f3eacd !important;
+  color: #6b5a40 !important;
+  padding: 0.5em 1em;
+  margin: 1em 0;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+table th, table td {
+  border: 1px solid #e2d4b3 !important;
+  padding: 0.5em 1em;
+}
+
+table th {
+  background-color: #f1e7cd !important;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f3eacd !important;
+}
+
+hr {
+  border-color: #e2d4b3 !important;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+/* Lists */
+ul, ol {
+  padding-left: 1.5em;
+}
+
+li {
+  margin: 0.3em 0;
+}
